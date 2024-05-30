@@ -5,6 +5,8 @@ import (
 	"crypto/rand"
 	"errors"
 	"fmt"
+	"go_demo/proxy"
+	"sync"
 	"time"
 	"unsafe"
 )
@@ -41,9 +43,51 @@ func main() {
 	//}
 	//randT()
 
-	contextT()
-	time.Sleep(1 * time.Minute)
+	//
+
+	//syncPoolT()
+
+	//time.Sleep(1 * time.Minute)
+
+	proxy.Start()
+
 }
+func syncPoolT() {
+
+	pool1 := sync.Pool{
+		New: func() interface{} {
+			return make([]int, 0, 10)
+		},
+	}
+	pool2 := sync.Pool{
+		New: func() interface{} {
+			return make([]int, 0, 10)
+		},
+	}
+
+	go func() {
+		for {
+			array := pool1.Get().([]int)
+			array = append(array, 1)
+			//fmt.Printf("array1:%v\n", array)
+			pool1.Put(array)
+			time.Sleep(1 * time.Second)
+
+		}
+
+	}()
+	go func() {
+		for {
+			array := pool2.Get().([]int)
+			array = append(array, 2)
+			fmt.Printf("array2:%v\n", array)
+			pool2.Put(array)
+			time.Sleep(1 * time.Second)
+		}
+	}()
+
+}
+
 func chT() {
 	items := []int{1, 2, 3, 4, 5}
 	changeSlice(items)
