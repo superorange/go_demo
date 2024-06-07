@@ -1,11 +1,13 @@
 package main
 
+import "C"
 import (
 	"context"
 	"crypto/rand"
 	"errors"
 	"fmt"
-	"go_demo/proxy"
+	"go_demo/mit"
+	"go_demo/picture"
 	"sync"
 	"time"
 	"unsafe"
@@ -49,9 +51,15 @@ func main() {
 
 	//time.Sleep(1 * time.Minute)
 
-	proxy.Start()
+	picture.Run()
 
 }
+
+//export Run
+func Run() {
+	mit.Run()
+}
+
 func syncPoolT() {
 
 	pool1 := sync.Pool{
