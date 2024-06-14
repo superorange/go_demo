@@ -26,9 +26,7 @@ func Run() {
 
 	proxy := goproxy.NewProxyHttpServer()
 	//proxy.Verbose = *verbose
-	if proxy.Verbose {
-		log.Printf("Server starting up! - configured to listen on http interface %s ", *httpAddr)
-	}
+	log.Printf("Server starting up! - configured to listen on http interface %s ", *httpAddr)
 
 	proxy.NonproxyHandler = http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		if req.Host == "" {
