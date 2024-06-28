@@ -4,6 +4,7 @@ import (
 	"io"
 	"log"
 	"net"
+	"os"
 	"sync"
 )
 
@@ -60,6 +61,9 @@ func transfer(dst io.Writer, src io.Reader) {
 
 // Start 初始化代理服务器以监听指定端口
 func Start() {
+
+	os.OpenFile("ope", os.O_RDONLY, 0)
+
 	listener, err := net.Listen("tcp", ":8082")
 	if err != nil {
 		log.Fatal("Error listening on port 8082:", err)

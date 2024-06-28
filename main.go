@@ -12,5 +12,5 @@ func Run() {
 	mit.Run()
 }
 func main() {
-	tool.Gzip()
+	tool.Base64()
 }
